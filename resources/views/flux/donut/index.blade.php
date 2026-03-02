@@ -115,11 +115,17 @@
 
             this.hovered = null;
             this.showTooltip = false;
+            this.centerHovered = false;
         },
 
         handleCenterEnter() {
-            this.handleLeave();
-            if (this.hasHover) this.centerHovered = true;
+            if (! this.isStatic) {
+                this.handleLeave();
+            }
+            
+            if (this.hasHover) {
+                this.centerHovered = true;
+            }
         },
 
         handleCenterLeave() {
