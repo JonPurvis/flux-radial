@@ -55,7 +55,7 @@
 
 @php
     $containerClass = match (true) {
-        $isHorizontalLegend => 'relative flex items-center',
+        $isHorizontalLegend => 'relative flex flex-row items-center justify-center gap-4',
         $isVerticalLegend => 'relative flex flex-col items-center',
         default => 'relative',
     };
@@ -206,23 +206,25 @@
                 y="{{ $showLabel ? $center - 5 : $center }}"
                 text-anchor="middle"
                 dominant-baseline="{{ $showLabel ? 'auto' : 'middle' }}"
-                class="fill-zinc-800 dark:fill-zinc-100 pointer-events-none font-semibold"
-                style="font-size: 18px"
+                class="pointer-events-none font-semibold"
+                style="font-size: 18px; fill: rgb(255, 255, 255);"
             >
                 <tspan x="{{ $center }}" x-text="currentValue.toLocaleString()">{{ number_format($displayValue) }}</tspan>
             </text>
 
             @if ($showLabel)
-                <text
-                    x="{{ $center }}"
-                    y="{{ $center + 10 }}"
-                    text-anchor="middle"
-                    dominant-baseline="auto"
-                    class="fill-zinc-500 dark:fill-zinc-400 pointer-events-none"
-                    style="font-size: 10px"
-                >
-                    <tspan x="{{ $center }}" x-text="currentLabel">{{ $label }}</tspan>
-                </text>
+                <g class="text-zinc-500 dark:text-zinc-400">
+                    <text
+                        x="{{ $center }}"
+                        y="{{ $center + 10 }}"
+                        text-anchor="middle"
+                        dominant-baseline="auto"
+                        class="pointer-events-none"
+                        style="font-size: 10px; fill: currentColor;"
+                    >
+                        <tspan x="{{ $center }}" x-text="currentLabel">{{ $label }}</tspan>
+                    </text>
+                </g>
             @endif
 
             {{ $slot }}
